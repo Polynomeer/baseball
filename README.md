@@ -22,3 +22,4 @@
     - /game : Play!!!
     
  
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/69034766/117411174-441d1a80-af4e-11eb-8730-7377603ff16a.gif)
