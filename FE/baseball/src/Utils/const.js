@@ -38,3 +38,4 @@ export const defaultInning = [
   'E',
   'B',
 ];
+export const playDelayTime = 1000;

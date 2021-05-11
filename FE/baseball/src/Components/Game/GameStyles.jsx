@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components';
-import * as CS from '@/Styles/CommonStyles';
-import theme from '@/Styles/theme';
+import styled, { keyframes } from "styled-components";
+import * as CS from "@/Styles/CommonStyles";
+import theme from "@/Styles/theme";
 
 const ArrowFade = keyframes`
 0% {
@@ -128,10 +128,20 @@ const GamePlayground = {
     border-radius: 8px;
     background: #222;
     color: ${theme.COLOR.DEFAULT};
-    font-family: 'Orbitron', sans-serif;
+    font-family: "Orbitron", sans-serif;
     font-size: ${theme.FONTSIZE.M};
     padding: 10px;
     z-index: 999;
+    cursor: pointer;
+    :disabled {
+      opacity: 0.5;
+      :hover {
+        transform: none;
+      }
+    }
+    :hover {
+      transform: scale(0.98);
+    }
   `,
 
   GameDisplay: styled.div`
@@ -212,11 +222,11 @@ const GamePlayground = {
       margin-right: 3px;
       background: ${({ type }) => {
         switch (type) {
-          case 'STRIKE':
+          case "STRIKE":
             return theme.COLOR.BALLCOUNT_STRIKE;
-          case 'BALL':
+          case "BALL":
             return theme.COLOR.BALLCOUNT_BALL;
-          case 'OUT':
+          case "OUT":
             return theme.COLOR.BALLCOUNT_OUT;
           default:
             return;
@@ -261,7 +271,7 @@ const GamePlayLog = {
     LogTitle: styled.div`
       font-weight: 600;
       color: ${({ isCurrentPlayer }) =>
-        isCurrentPlayer ? 'red' : theme.COLOR.PLAYER_NAME};
+        isCurrentPlayer ? "red" : theme.COLOR.PLAYER_NAME};
     `,
     Log: styled.div`
       padding: 20px 0px;
@@ -294,7 +304,7 @@ const GamePlayLog = {
 const SquadBoard = {
   SquadBoard: styled(CS.BOX.FLEX_ROW_BOX)`
     position: absolute;
-    bottom: ${({ isMouseOver }) => (isMouseOver ? '5px' : '-1080px')};
+    bottom: ${({ isMouseOver }) => (isMouseOver ? "5px" : "-1080px")};
     left: 5%;
     width: 70%;
     height: 77%;
@@ -315,7 +325,7 @@ const SquadBoard = {
   `,
   PopUpBackground: styled.div`
     position: absolute;
-    display: ${({ isMouseOver }) => (isMouseOver ? 'block' : 'none')};
+    display: ${({ isMouseOver }) => (isMouseOver ? "block" : "none")};
     left: 0;
     width: 99.6%;
     height: 99.4%;
@@ -382,7 +392,7 @@ const SquadBoard = {
       border-bottom: 1px solid ${theme.COLOR.PLAYER_DESCRIPTION};
       text-align: center;
       color: ${({ isCurrentPlayer }) =>
-        isCurrentPlayer ? 'red' : theme.COLOR.DEFAULT};
+        isCurrentPlayer ? "red" : theme.COLOR.DEFAULT};
     `,
     SquadTableData: styled.td`
       vertical-align: middle;
