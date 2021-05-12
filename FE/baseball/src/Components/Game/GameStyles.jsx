@@ -159,21 +159,46 @@ const GamePlayground = {
     left: 230px; */
   `,
 
-  Base: styled(CS.BOX.FLEX_CENTER_BOX)`
+  FirstBase: styled(CS.BOX.FLEX_CENTER_BOX)`
     width: 49px;
     height: 49px;
     border: 1px solid red;
     background: red;
-    opacity: 0.8;
+    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
     transform: rotate(45deg);
     position: absolute;
     z-index: -1;
+    transition: all ease-in-out 0.4s;
     /* 1 */
     top: 491px;
     left: 669px;
+  `,
+
+  SecondBase: styled(CS.BOX.FLEX_CENTER_BOX)`
+    width: 49px;
+    height: 49px;
+    border: 1px solid red;
+    background: red;
+    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
+    transform: rotate(45deg);
+    position: absolute;
+    z-index: -1;
+    transition: all ease-in-out 0.4s;
     /* 2 */
     top: 272px;
     left: 451px;
+  `,
+
+  ThirdBase: styled(CS.BOX.FLEX_CENTER_BOX)`
+    width: 49px;
+    height: 49px;
+    border: 1px solid red;
+    background: red;
+    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
+    transform: rotate(45deg);
+    position: absolute;
+    z-index: -1;
+    transition: all ease-in-out 0.4s;
     /* 3 */
     top: 491px;
     left: 231px;
