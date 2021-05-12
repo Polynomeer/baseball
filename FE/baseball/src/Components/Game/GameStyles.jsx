@@ -140,6 +140,10 @@ const GamePlayground = {
     left: 9%;
   `,
 
+  Player: styled.div`
+    width: 100%;
+  `,
+
   Runner: styled(CS.BOX.FLEX_CENTER_BOX)`
     position: absolute;
 
@@ -213,16 +217,22 @@ const GamePlayground = {
   `,
 
   HomeBase: styled(CS.BOX.FLEX_CENTER_BOX)`
-    width: 114px;
-    height: 114px;
-    border: 1px solid red;
+    width: 115px;
+    height: 115px;
+    border: 1px solid green;
     border-radius: 50%;
-    background: red;
-    opacity: 0.8;
+    background: green;
+    opacity: ${({ isHitter }) => (isHitter === 0 ? 1 : 0)};
     position: absolute;
-    z-index: -1;
     top: 732px;
     left: 418px;
+    z-index: -1;
+    transition: all ease-in-out 1s;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   `,
 
   BallCountBoard: {

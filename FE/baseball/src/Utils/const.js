@@ -20,24 +20,7 @@ export const BACKGROUND_URL =
 
 // etc
 
-export const defaultInning = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  'R',
-  'H',
-  'E',
-  'B',
-];
+export const defaultInning = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 export const baseRunner = {
   R0: [false, false, false],
@@ -249,7 +232,17 @@ export const initialBaseState = {
   },
 };
 
-export const runner = {
-  base: 0,
-  player: null,
-};
+export const baseStatement = [
+  {
+    player: null,
+    isRunner: false,
+  },
+  {
+    player: null,
+    isRunner: false,
+  },
+  {
+    player: null,
+    isRunner: false,
+  },
+];

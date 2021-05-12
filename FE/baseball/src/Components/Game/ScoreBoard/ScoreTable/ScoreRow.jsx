@@ -5,17 +5,19 @@ import { ScoreBoardStyles as S } from '@/Components/Game/ScoreBoard/ScoreBoardSt
 import { v4 as uuidv4 } from 'uuid';
 import { defaultInning } from '@/Utils/const';
 
-const ScoreRow = ({ scores, isPlayer }) => {
-  const { team, score, totalScore, isOffense } = scores;
+const ScoreRow = ({ teamInfo, isPlayer }) => {
+  const { teamName, innings } = teamInfo;
 
+  const isOffense = true;
+  const totalScore = 1;
   return (
     <S.ScoreRow {...{ isOffense }}>
       <AttackTeamTag {...{ isOffense }} />
-      <TeamNameBox {...{ team, isPlayer }} />
+      <TeamNameBox {...{ teamName, isPlayer }} />
       {defaultInning.map((_, idx) => (
         <ScoreItem
           key={uuidv4()}
-          inningScore={score[idx]}
+          inningScore={innings[idx].score}
           {...{ idx, totalScore }}
         />
       ))}

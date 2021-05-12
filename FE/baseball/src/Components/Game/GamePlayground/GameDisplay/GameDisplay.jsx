@@ -1,16 +1,20 @@
 import GameDisplayBackground from '@/Components/Game/GamePlayground/GameDisplay/GameDisplayBackground';
 import Base from './Base';
-import Hitter from '../Hitter';
+
 import Runner from './Runner';
 import HomeBase from './HomeBase';
 import { GamePlayground as S } from '@/Components/Game/GameStyles';
 import { useEffect, useReducer } from 'react';
 import {
   baseRunner,
+  baseStatement,
   gameDisplayTable,
   hitterAction,
   initialBaseState,
+  runner,
 } from '@/Utils/const';
+import Player from './Player';
+import HitterButton from '../HitterButton';
 
 // 현재 출루 상황
 const checkBaseState = (state) => {
@@ -34,7 +38,6 @@ const hitterReducer = (state, action) => {
 
   switch (action.type) {
     case hitterAction.HIT:
-      console.log(gameDisplayTable.H[currentBaseState]);
       return {
         ...state,
         first: {
@@ -51,7 +54,6 @@ const hitterReducer = (state, action) => {
         },
       };
     case hitterAction.DOUBLE:
-      console.log(gameDisplayTable.D[currentBaseState]);
       return {
         ...state,
         first: {
@@ -68,7 +70,6 @@ const hitterReducer = (state, action) => {
         },
       };
     case hitterAction.TRIPLE:
-      console.log(gameDisplayTable.T[currentBaseState]);
       return {
         ...state,
         first: {
@@ -85,7 +86,6 @@ const hitterReducer = (state, action) => {
         },
       };
     case hitterAction.HR:
-      console.log(gameDisplayTable.HR[currentBaseState]);
       return {
         ...state,
         first: {
@@ -102,7 +102,6 @@ const hitterReducer = (state, action) => {
         },
       };
     case hitterAction.B4:
-      console.log(gameDisplayTable.B4[currentBaseState]);
       return {
         ...state,
         first: {
@@ -123,26 +122,61 @@ const hitterReducer = (state, action) => {
   }
 };
 
+const runnerReducer = (state, action) => {
+  switch (action.type) {
+    case hitterAction.HIT:
+      return ([state[0], state[1], state[2]] = [
+        { player: 'new', isRunner: true },
+        state[0],
+        state[1],
+      ]);
+    case hitterAction.DOUBLE:
+      return;
+    case hitterAction.TRIPLE:
+      return;
+    case hitterAction.HR:
+      return;
+    case hitterAction.B4:
+      return;
+    default:
+      break;
+  }
+};
+const hitterImgReducer = (state, action) => {
+  switch (action.type) {
+    case 'HITTER':
+      return (state = 'HITTER');
+    case 'RUNNER':
+      return (state = 'RUNNER');
+    default:
+      break;
+  }
+};
+
 const GameDisplay = () => {
   const [baseState, hitterActionDispatch] = useReducer(
     hitterReducer,
     initialBaseState
   );
-  console.log(baseState);
 
-  useEffect(() => {
-    console.log('base setting');
-  }, [baseState]);
+  const [runnerState, runnerDispatch] = useReducer(
+    runnerReducer,
+    baseStatement
+  );
+  const [hitterImg, hitterImgDispatch] = useReducer(
+    hitterImgReducer,
+    'DEFAULT'
+  );
+
+  console.log(runnerState);
+  useEffect(() => {}, [runnerState]);
 
   return (
     <S.GameDisplay>
       <GameDisplayBackground />
-      <Hitter {...{ hitterActionDispatch }} type={`HIT`} />
-      <Hitter {...{ hitterActionDispatch }} type={`DOUBLE`} />
-      <Hitter {...{ hitterActionDispatch }} type={`TRIPLE`} />
-      <Hitter {...{ hitterActionDispatch }} type={`HR`} />
-      <Hitter {...{ hitterActionDispatch }} type={`B4`} />
-      <Runner />
+      <HitterButton {...{ hitterActionDispatch, runnerDispatch }} />
+      <Player />
+
       <Base
         isRunner={baseState.first.isRunner}
         basePosition={baseState.first.position}
@@ -155,7 +189,7 @@ const GameDisplay = () => {
         isRunner={baseState.third.isRunner}
         basePosition={baseState.third.position}
       />
-      {/* <HomeBase /> */}
+      {/* <HomeBase isHitter={runnerState[0].base} /> */}
     </S.GameDisplay>
   );
 };

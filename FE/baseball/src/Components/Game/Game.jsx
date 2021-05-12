@@ -36,7 +36,7 @@ const Game = ({
   if (error || !gameData) return null;
 
   return (
-    <GameContext.Provider value={{ gameData, squadMockData, teamName }}>
+    <GameContext.Provider value={{ gameData, squadMockData, teamName, gameId }}>
       <S.Background src={BACKGROUND_URL} />
       <S.Game>
         <S.GameLeftSection>

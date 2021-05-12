@@ -60,15 +60,17 @@ const ScoreBoardStyles = {
   TeamNameBox: styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
   `,
 
   TeamName: styled.div`
-    width: 120px;
+    width: 200px;
     margin: 10px;
+    font-size: 20px;
+    text-align: center;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
   `,
 
   PopUpBackground: styled.div`
@@ -125,8 +127,9 @@ const ScoreBoardStyles = {
     padding: 3px;
     margin: 3px;
     position: absolute;
-    top: 33px;
-    left: 44px;
+    display: flex;
+    justify-content: center;
+    top: 35px;
   `,
 };
 
