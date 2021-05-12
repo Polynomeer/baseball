@@ -5,32 +5,12 @@ import Runner from './Runner';
 import HomeBase from './HomeBase';
 import { GamePlayground as S } from '@/Components/Game/GameStyles';
 import { useEffect, useReducer } from 'react';
-import { baseRunner, gameDisplayTable } from '@/Utils/const';
-
-const hitterAction = {
-  HIT: 'HIT',
-  DOUBLE: 'DOUBLE',
-  TRIPLE: 'TRIPLE',
-  HR: 'HR',
-};
-
-const initialBaseState = {
-  first: {
-    position: `first`,
-    runner: 0,
-    isRunner: false,
-  },
-  second: {
-    position: `second`,
-    runner: 0,
-    isRunner: false,
-  },
-  third: {
-    position: `third`,
-    runner: 0,
-    isRunner: false,
-  },
-};
+import {
+  baseRunner,
+  gameDisplayTable,
+  hitterAction,
+  initialBaseState,
+} from '@/Utils/const';
 
 // 현재 출루 상황
 const checkBaseState = (state) => {
@@ -51,10 +31,10 @@ const checkBaseState = (state) => {
 const hitterReducer = (state, action) => {
   const currentBaseState = checkBaseState(state);
   console.log(currentBaseState);
-  console.log(gameDisplayTable.H[currentBaseState]);
 
   switch (action.type) {
     case hitterAction.HIT:
+      console.log(gameDisplayTable.H[currentBaseState]);
       return {
         ...state,
         first: {
@@ -71,6 +51,7 @@ const hitterReducer = (state, action) => {
         },
       };
     case hitterAction.DOUBLE:
+      console.log(gameDisplayTable.D[currentBaseState]);
       return {
         ...state,
         first: {
@@ -87,6 +68,7 @@ const hitterReducer = (state, action) => {
         },
       };
     case hitterAction.TRIPLE:
+      console.log(gameDisplayTable.T[currentBaseState]);
       return {
         ...state,
         first: {
@@ -103,6 +85,7 @@ const hitterReducer = (state, action) => {
         },
       };
     case hitterAction.HR:
+      console.log(gameDisplayTable.HR[currentBaseState]);
       return {
         ...state,
         first: {
@@ -131,7 +114,7 @@ const GameDisplay = () => {
   console.log(baseState);
 
   useEffect(() => {
-    console.log('출루주자 베이스 컬러 세팅!');
+    console.log('base setting');
   }, [baseState]);
 
   return (

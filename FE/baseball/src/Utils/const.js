@@ -222,3 +222,28 @@ export const gameDisplayTable = {
     },
   },
 };
+
+export const hitterAction = {
+  HIT: 'HIT',
+  DOUBLE: 'DOUBLE',
+  TRIPLE: 'TRIPLE',
+  HR: 'HR',
+};
+
+export const initialBaseState = {
+  first: {
+    position: `first`,
+    runner: 0,
+    isRunner: false,
+  },
+  second: {
+    position: `second`,
+    runner: 0,
+    isRunner: false,
+  },
+  third: {
+    position: `third`,
+    runner: 0,
+    isRunner: false,
+  },
+};
