@@ -1,13 +1,13 @@
-import { createContext, useState, useEffect } from "react";
-import GameHeader from "./GameHeader/GameHeader";
-import GamePlayground from "./GamePlayground/GamePlayground";
-import GamePlayLog from "./GamePlayLog/GamePlayLog";
-import SquadBoard from "./SquadBoard/SquadBoard";
-import ScoreBoard from "./ScoreBoard/ScoreBoard";
-import { squadMockData } from "@/Utils/mockData";
-import { BACKGROUND_URL } from "@/Utils/const";
-import { getAPI } from "@/Utils/API";
-import { Game as S } from "@/Components/Game/GameStyles";
+import { createContext, useState, useEffect } from 'react';
+import GameHeader from './GameHeader/GameHeader';
+import GamePlayground from './GamePlayground/GamePlayground';
+import GamePlayLog from './GamePlayLog/GamePlayLog';
+import SquadBoard from './SquadBoard/SquadBoard';
+import ScoreBoard from './ScoreBoard/ScoreBoard';
+import { squadMockData } from '@/Utils/mockData';
+import { BACKGROUND_URL } from '@/Utils/const';
+import { getAPI } from '@/Utils/API';
+import { Game as S } from '@/Components/Game/GameStyles';
 
 const GameContext = createContext();
 

@@ -61,7 +61,7 @@ export const gameDisplayTable = {
       score: 0,
     },
     R2: {
-      base: baseRunner.R23,
+      base: baseRunner.R13,
       score: 0,
     },
     R3: {
@@ -228,6 +228,7 @@ export const hitterAction = {
   DOUBLE: 'DOUBLE',
   TRIPLE: 'TRIPLE',
   HR: 'HR',
+  B4: 'B4',
 };
 
 export const initialBaseState = {
@@ -246,4 +247,9 @@ export const initialBaseState = {
     runner: 0,
     isRunner: false,
   },
+};
+
+export const runner = {
+  base: 0,
+  player: null,
 };

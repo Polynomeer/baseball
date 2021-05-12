@@ -142,18 +142,26 @@ const GamePlayground = {
 
   Runner: styled(CS.BOX.FLEX_CENTER_BOX)`
     position: absolute;
-    font-size: 80px;
+
+    width: 100px;
+    height: 100px;
     transition: all ease-in-out 1s;
+    transform: scaleX(-1) rotate(45deg);
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
 
     /* base */
-    /* top: 740px;
-    left: 440px; */
+    top: 670px;
+    left: 430px;
     /* 1 */
     /* top: 450px;
     left: 650px; */
     /* 2 */
-    top: 230px;
-    left: 440px;
+    /* top: 230px;
+    left: 440px; */
     /* 3 */
     /* top: 450px;
     left: 230px; */

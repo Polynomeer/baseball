@@ -101,6 +101,23 @@ const hitterReducer = (state, action) => {
           isRunner: gameDisplayTable.HR[currentBaseState].base[2],
         },
       };
+    case hitterAction.B4:
+      console.log(gameDisplayTable.B4[currentBaseState]);
+      return {
+        ...state,
+        first: {
+          ...state.first,
+          isRunner: gameDisplayTable.B4[currentBaseState].base[0],
+        },
+        second: {
+          ...state.second,
+          isRunner: gameDisplayTable.B4[currentBaseState].base[1],
+        },
+        third: {
+          ...state.third,
+          isRunner: gameDisplayTable.B4[currentBaseState].base[2],
+        },
+      };
     default:
       throw new Error();
   }
@@ -124,7 +141,8 @@ const GameDisplay = () => {
       <Hitter {...{ hitterActionDispatch }} type={`DOUBLE`} />
       <Hitter {...{ hitterActionDispatch }} type={`TRIPLE`} />
       <Hitter {...{ hitterActionDispatch }} type={`HR`} />
-      {/* <Runner /> */}
+      <Hitter {...{ hitterActionDispatch }} type={`B4`} />
+      <Runner />
       <Base
         isRunner={baseState.first.isRunner}
         basePosition={baseState.first.position}
