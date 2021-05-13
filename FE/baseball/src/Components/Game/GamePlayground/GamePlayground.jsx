@@ -1,4 +1,5 @@
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
+import { GameContext } from "@/Components/Game/Game";
 import InningInfo from "./InningInfo";
 import PitchButton from "./PitchButton";
 import GameDisplay from "./GameDisplay/GameDisplay";
@@ -7,23 +8,52 @@ import { BACKGROUND_URL } from "@/Utils/const";
 import { GamePlayground as S } from "@/Components/Game/GameStyles";
 
 const reducer = (state, action) => {
+  const initialBallState = {
+    strike: 0,
+    ball: 0,
+    out: 0,
+  };
+
   switch (action.type) {
+    case "STRIKE_OUT":
+      // 로그 데이터 PUT
+      return { ...state, ...initialBallState, out: state.out + 1 };
     case "STRIKE":
       return { ...state, strike: state.strike + 1 };
+    case "FOUR_BALL":
+      // 추가로 1루타 액션 필요 & 로그 데이터 PUT
+      return { ...state, ...initialBallState, out: state.out };
     case "BALL":
       return { ...state, ball: state.ball + 1 };
+    case "THREE_OUT":
+      // 이닝 정보 PUT
+      // defenseTeam Switching
+      let inningState = { ...state, ...initialBallState };
+      if (state.inningCount === "초") {
+        if (!state.isDefense) {
+          inningState.inningCount = "말";
+        }
+      } else {
+        if (!state.isDefense) {
+          inningState.inning = state.inning + 1;
+          inningState.inningCount = "초";
+        }
+      }
+      inningState.isDefense = !state.isDefense;
+      return { ...inningState };
     default:
       return;
   }
 };
 
 const GamePlayground = () => {
+  const { defenseTeam, setDefenseTeam } = useContext(GameContext);
   const initialState = {
-    strike: 2,
-    ball: 2,
-    out: 1,
+    strike: 0,
+    ball: 0,
+    out: 0,
     inning: 1,
-    inningCount: "초", // or 말
+    inningCount: "초",
     isDefense: true,
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -31,10 +61,10 @@ const GamePlayground = () => {
   return (
     <S.GamePlayground>
       <S.Background src={BACKGROUND_URL} />
-      <BallCountBoard ballCount={state} />
-      <InningInfo inningInfo={state} />
+      <BallCountBoard ballCount={state} dispatch={dispatch} />
+      <InningInfo inningInfo={state} dispatch={dispatch} />
       <GameDisplay />
-      <PitchButton dispatch={dispatch} />
+      <PitchButton inningInfo={state} dispatch={dispatch} />
     </S.GamePlayground>
   );
 };

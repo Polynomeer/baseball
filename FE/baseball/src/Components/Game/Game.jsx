@@ -4,9 +4,8 @@ import GamePlayground from "./GamePlayground/GamePlayground";
 import GamePlayLog from "./GamePlayLog/GamePlayLog";
 import SquadBoard from "./SquadBoard/SquadBoard";
 import ScoreBoard from "./ScoreBoard/ScoreBoard";
-import { squadMockData } from "@/Utils/mockData";
 import { BACKGROUND_URL } from "@/Utils/const";
-import { getAPI } from "@/Utils/API";
+import getGameData from "@/Utils/getGameData";
 import { Game as S } from "@/Components/Game/GameStyles";
 
 const GameContext = createContext();
@@ -16,27 +15,48 @@ const Game = ({
     state: { gameId, teamName },
   },
 }) => {
-  // 선택한 팀을 먼저 수비로 지정한다.
-  // 추후 아웃 3카운트 이후 데이터를 받아올때 defenseTeam을 바꿔줄 예정
-  squadMockData.defenseTeam = teamName;
-
   const [gameData, setGameData] = useState(null);
+  const [squads, setSquads] = useState(null);
+  const [defenseTeam, setDefenseTeam] = useState(null);
+  const [homeTeam, setHomeTeam] = useState(null);
+  const [awayTeam, setAwayTeam] = useState(null);
+  const [homeCurrentHitter, setHomeCurrentHitter] = useState(null);
+  const [awayCurrentHitter, setAwayCurrentHitter] = useState(null);
+  const [homePitchCount, setHomePitchCount] = useState(0);
+  const [awayPitchCount, setAwayPitchCount] = useState(0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getAPI
-      .game(gameId)
-      .then((res) => {
-        if (res && res.data) setGameData(res.data);
-        else throw Error();
-      })
-      .catch((err) => setError(err));
-  }, [gameId]);
+    getGameData("game", gameId, setGameData, setError);
+    getGameData("squads", gameId, setSquads, setError);
+    setDefenseTeam(teamName);
+    if (gameData) {
+      // 초기 렌더링 시에 유저가 셀렉한 팀을 토대로 데이터 세팅
+      setHomeCurrentHitter(gameData.home.players[0]);
+      setAwayCurrentHitter(gameData.away.players[0]);
+    }
+  }, []);
 
-  if (error || !gameData) return null;
+  if (error || !gameData || !squads) return null;
 
   return (
-    <GameContext.Provider value={{ gameData, squadMockData, teamName }}>
+    <GameContext.Provider
+      value={{
+        teamName,
+        gameData,
+        squads,
+        defenseTeam,
+        setDefenseTeam,
+        homeCurrentHitter,
+        setHomeCurrentHitter,
+        awayCurrentHitter,
+        setAwayCurrentHitter,
+        homePitchCount,
+        setHomePitchCount,
+        awayPitchCount,
+        setAwayPitchCount,
+      }}
+    >
       <S.Background src={BACKGROUND_URL} />
       <S.Game>
         <S.GameLeftSection>

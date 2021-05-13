@@ -1,18 +1,18 @@
-import { GamePlayground as S } from '@/Components/Game/GameStyles';
-import GameDisplayBackground from '@/Components/Game/GamePlayground/GameDisplay/GameDisplayBackground';
-import Runner from './Runner';
-import Base from './Base';
-import HomeBase from './HomeBase';
-import Hitter from '../Hitter';
+import GameDisplayBackground from "./GameDisplayBackground";
+// import Runner from "./Runner";
+// import Base from "./Base";
+// import HomeBase from "./HomeBase";
+// import Hitter from "../Hitter";
+import { GamePlayground as S } from "@/Components/Game/GameStyles";
 
 const GameDisplay = () => {
   return (
     <S.GameDisplay>
       <GameDisplayBackground />
-      <Hitter />
+      {/* <Hitter />
       <Runner />
       <Base />
-      <HomeBase />
+      <HomeBase /> */}
     </S.GameDisplay>
   );
 };
