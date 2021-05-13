@@ -133,6 +133,7 @@ const GamePlayground = {
     padding: 10px;
     z-index: 999;
     cursor: pointer;
+    visibility: ${(props) => props.visible};
     :disabled {
       opacity: 0.5;
       :hover {
