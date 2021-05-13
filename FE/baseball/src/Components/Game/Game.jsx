@@ -1,14 +1,36 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useReducer } from 'react';
 import GameHeader from './GameHeader/GameHeader';
 import GamePlayground from './GamePlayground/GamePlayground';
 import GamePlayLog from './GamePlayLog/GamePlayLog';
 import SquadBoard from './SquadBoard/SquadBoard';
 import ScoreBoard from './ScoreBoard/ScoreBoard';
-import { BACKGROUND_URL } from '@/Utils/const';
+import { BACKGROUND_URL, hitterAction, initialBaseList } from '@/Utils/const';
 import getGameData from '@/Utils/getGameData';
 import { Game as S } from '@/Components/Game/GameStyles';
+import GameDisplay from './GamePlayground/GameDisplay/GameDisplay';
 
 const GameContext = createContext();
+
+const baseListReducer = (state, action) => {
+  console.log(action);
+  switch (action.type) {
+    case hitterAction.HIT: {
+      const updateState = state.map((each) => {
+        return { ...each, player: each.player, base: each.base + 1 };
+      });
+      console.log(state);
+      return [
+        {
+          player: action.player,
+          base: 1,
+        },
+        ...updateState,
+      ];
+    }
+    default:
+      return [...state];
+  }
+};
 
 const Game = ({
   location: {
@@ -35,6 +57,10 @@ const Game = ({
       setAwayCurrentHitter(gameData.away.players[0]);
     }
   }, []);
+  const [baseList, baseListDispatch] = useReducer(
+    baseListReducer,
+    initialBaseList
+  );
 
   if (error || !gameData || !squads) return null;
 
@@ -55,6 +81,8 @@ const Game = ({
         setHomePitchCount,
         awayPitchCount,
         setAwayPitchCount,
+        baseList,
+        baseListDispatch,
       }}
     >
       <S.Background src={BACKGROUND_URL} />
@@ -66,6 +94,7 @@ const Game = ({
         <S.GameRightSection>
           <GamePlayLog />
         </S.GameRightSection>
+        <GameDisplay />
         <ScoreBoard />
         <SquadBoard />
       </S.Game>
