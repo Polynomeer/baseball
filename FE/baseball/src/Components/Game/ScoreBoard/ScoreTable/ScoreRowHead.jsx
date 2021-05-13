@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import ScoreItem from './ScoreItem';
 
-const ScoreRowHead = () => {
+const ScoreRowHead = ({ gameData }) => {
   return (
     <S.ScoreRowHead>
       <AttackTeamTag isAttack={false} />

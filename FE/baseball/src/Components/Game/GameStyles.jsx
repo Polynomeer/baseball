@@ -17,6 +17,38 @@ const ArrowFade = keyframes`
 }
 `;
 
+const RunToFirst = keyframes`
+0% {
+  top: 670px;
+  left: 430px;
+}
+
+100% {
+  top: 450px;
+  left: 650px;
+}
+`;
+const RunToSecond = keyframes`
+0% {
+  top: 450px;
+  left: 650px;
+}
+100% {
+  top: 230px;
+  left: 440px;
+}
+`;
+const RunToThird = keyframes`
+0% {
+  top: 230px;
+  left: 440px;
+}
+100% {
+  top: 450px;
+  left: 230px;
+}
+`;
+
 const Game = {
   Game: styled(CS.BOX.FLEX_ROW_BOX)`
     position: relative;
@@ -151,56 +183,112 @@ const GamePlayground = {
     left: 9%;
   `,
 
-  Runner: styled(CS.BOX.FLEX_CENTER_BOX)`
-    position: absolute;
-    font-size: 80px;
-    transition: all ease-in-out 1s;
-
-    /* base */
-    /* top: 740px;
-    left: 440px; */
-    /* 1 */
-    /* top: 450px;
-    left: 650px; */
-    /* 2 */
-    top: 230px;
-    left: 440px;
-    /* 3 */
-    /* top: 450px;
-    left: 230px; */
+  Player: styled.div`
+    width: 100%;
   `,
 
-  Base: styled(CS.BOX.FLEX_CENTER_BOX)`
+  ToFirst: styled.div`
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    animation: ${RunToFirst} 1 1s linear;
+    animation-fill-mode: both;
+    transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  `,
+  ToSecond: styled.div`
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    animation: ${RunToSecond} 1 1s linear;
+    animation-fill-mode: both;
+    transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  `,
+  ToThird: styled.div`
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    animation: ${RunToThird} 1 1s linear;
+    animation-fill-mode: both;
+    transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  `,
+
+  FirstBase: styled(CS.BOX.FLEX_CENTER_BOX)`
     width: 49px;
     height: 49px;
     border: 1px solid red;
     background: red;
-    opacity: 0.8;
+    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
     transform: rotate(45deg);
     position: absolute;
     z-index: -1;
+    transition: all ease-in-out 0.4s;
     /* 1 */
     top: 491px;
     left: 669px;
+  `,
+
+  SecondBase: styled(CS.BOX.FLEX_CENTER_BOX)`
+    width: 49px;
+    height: 49px;
+    border: 1px solid red;
+    background: red;
+    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
+    transform: rotate(45deg);
+    position: absolute;
+    z-index: -1;
+    transition: all ease-in-out 0.4s;
     /* 2 */
     top: 272px;
     left: 451px;
+  `,
+
+  ThirdBase: styled(CS.BOX.FLEX_CENTER_BOX)`
+    width: 49px;
+    height: 49px;
+    border: 1px solid red;
+    background: red;
+    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
+    transform: rotate(45deg);
+    position: absolute;
+    z-index: -1;
+    transition: all ease-in-out 0.4s;
     /* 3 */
     top: 491px;
     left: 231px;
   `,
 
   HomeBase: styled(CS.BOX.FLEX_CENTER_BOX)`
-    width: 114px;
-    height: 114px;
-    border: 1px solid red;
+    width: 115px;
+    height: 115px;
+    border: 1px solid green;
     border-radius: 50%;
-    background: red;
-    opacity: 0.8;
+    background: green;
+    opacity: ${({ isHitter }) => (isHitter === 0 ? 1 : 0)};
     position: absolute;
-    z-index: -1;
     top: 732px;
     left: 418px;
+    z-index: -1;
+    transition: all ease-in-out 1s;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   `,
 
   BallCountBoard: {
