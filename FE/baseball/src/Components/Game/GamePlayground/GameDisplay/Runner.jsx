@@ -35,9 +35,14 @@ const ToSecond = () => {
     });
   };
   return (
-    <S.ToSecond onAnimationEnd={animationHandler} deg={deg}>
-      <img src={`./asset/${name}.gif`} alt="runner" />
-    </S.ToSecond>
+    <>
+      <S.ToFirst onAnimationEnd={animationHandler} deg={deg}>
+        <img src={`./asset/${name}.gif`} alt="runner" />
+      </S.ToFirst>
+      <S.ToSecond onAnimationEnd={animationHandler} deg={deg}>
+        <img src={`./asset/${name}.gif`} alt="runner" />
+      </S.ToSecond>
+    </>
   );
 };
 
@@ -55,9 +60,17 @@ const ToThird = () => {
     });
   };
   return (
-    <S.ToThird onAnimationEnd={animationHandler} deg={deg}>
-      <img src={`./asset/${name}.gif`} alt="runner" />
-    </S.ToThird>
+    <>
+      <S.ToFirst onAnimationEnd={animationHandler} deg={deg}>
+        <img src={`./asset/${name}.gif`} alt="runner" />
+      </S.ToFirst>
+      <S.ToSecond onAnimationEnd={animationHandler} deg={deg}>
+        <img src={`./asset/${name}.gif`} alt="runner" />
+      </S.ToSecond>
+      <S.ToThird onAnimationEnd={animationHandler} deg={deg}>
+        <img src={`./asset/${name}.gif`} alt="runner" />
+      </S.ToThird>
+    </>
   );
 };
 

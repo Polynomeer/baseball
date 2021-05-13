@@ -1,6 +1,6 @@
 import GameDisplayBackground from '@/Components/Game/GamePlayground/GameDisplay/GameDisplayBackground';
 import Base from './Base';
-
+import { v4 as uuidv4 } from 'uuid';
 import Runner from './Runner';
 import HomeBase from './HomeBase';
 import { GamePlayground as S } from '@/Components/Game/GameStyles';
@@ -163,14 +163,15 @@ const GameDisplay = () => {
     console.log(baseList);
   }, [baseList]);
 
+  console.log(baseList.length);
   return (
     <S.GameDisplay>
       <GameDisplayBackground />
       <HitterButton {...{ hitterActionDispatch, baseListDispatch }} />
       <Player />
-      {baseList.length === 1 && <Runner type={baseList[0].base} />}
-      {baseList.length === 2 && <Runner type={baseList[1].base} />}
-      {baseList.length === 3 && <Runner type={baseList[2].base} />}
+      {baseList.map((runner) => (
+        <Runner type={runner.base} key={uuidv4()} />
+      ))}
       <Base
         isRunner={baseState.first.isRunner}
         basePosition={baseState.first.position}

@@ -180,7 +180,7 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToFirst} 1 2s linear;
+    animation: ${RunToFirst} 1 1s linear;
     animation-fill-mode: both;
     transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
 
@@ -193,7 +193,7 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToSecond} 1 2s linear;
+    animation: ${RunToSecond} 1 1s linear;
     animation-fill-mode: both;
     transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
 
@@ -206,7 +206,7 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToThird} 1 2s linear;
+    animation: ${RunToThird} 1 1s linear;
     animation-fill-mode: both;
     transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
 
