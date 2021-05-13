@@ -39,6 +39,7 @@ export const baseRunner = {
   R123: [true, true, true],
 };
 
+export const playDelayTime = 1000;
 export const gameDisplayTable = {
   H: {
     R0: {

@@ -1,12 +1,12 @@
-import { createContext, useState, useEffect } from "react";
-import GameHeader from "./GameHeader/GameHeader";
-import GamePlayground from "./GamePlayground/GamePlayground";
-import GamePlayLog from "./GamePlayLog/GamePlayLog";
-import SquadBoard from "./SquadBoard/SquadBoard";
-import ScoreBoard from "./ScoreBoard/ScoreBoard";
-import { BACKGROUND_URL } from "@/Utils/const";
-import getGameData from "@/Utils/getGameData";
-import { Game as S } from "@/Components/Game/GameStyles";
+import { createContext, useState, useEffect } from 'react';
+import GameHeader from './GameHeader/GameHeader';
+import GamePlayground from './GamePlayground/GamePlayground';
+import GamePlayLog from './GamePlayLog/GamePlayLog';
+import SquadBoard from './SquadBoard/SquadBoard';
+import ScoreBoard from './ScoreBoard/ScoreBoard';
+import { BACKGROUND_URL } from '@/Utils/const';
+import getGameData from '@/Utils/getGameData';
+import { Game as S } from '@/Components/Game/GameStyles';
 
 const GameContext = createContext();
 
@@ -25,10 +25,9 @@ const Game = ({
   const [homePitchCount, setHomePitchCount] = useState(0);
   const [awayPitchCount, setAwayPitchCount] = useState(0);
   const [error, setError] = useState(null);
-
   useEffect(() => {
-    getGameData("game", gameId, setGameData, setError);
-    getGameData("squads", gameId, setSquads, setError);
+    getGameData('game', gameId, setGameData, setError);
+    getGameData('squads', gameId, setSquads, setError);
     setDefenseTeam(teamName);
     if (gameData) {
       // 초기 렌더링 시에 유저가 셀렉한 팀을 토대로 데이터 세팅
@@ -42,6 +41,7 @@ const Game = ({
   return (
     <GameContext.Provider
       value={{
+        gameId,
         teamName,
         gameData,
         squads,
