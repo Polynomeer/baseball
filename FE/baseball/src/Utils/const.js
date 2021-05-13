@@ -22,6 +22,12 @@ export const BACKGROUND_URL =
 
 export const defaultInning = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+export const initialBaseList = [];
+export const initialRunnerState = {
+  base: 0,
+  player: null,
+};
+
 export const baseRunner = {
   R0: [false, false, false],
   R1: [true, false, false],
@@ -231,18 +237,3 @@ export const initialBaseState = {
     isRunner: false,
   },
 };
-
-export const baseStatement = [
-  {
-    player: null,
-    isRunner: false,
-  },
-  {
-    player: null,
-    isRunner: false,
-  },
-  {
-    player: null,
-    isRunner: false,
-  },
-];

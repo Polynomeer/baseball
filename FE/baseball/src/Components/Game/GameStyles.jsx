@@ -17,6 +17,38 @@ const ArrowFade = keyframes`
 }
 `;
 
+const RunToFirst = keyframes`
+0% {
+  top: 670px;
+  left: 430px;
+}
+
+100% {
+  top: 450px;
+  left: 650px;
+}
+`;
+const RunToSecond = keyframes`
+0% {
+  top: 450px;
+  left: 650px;
+}
+100% {
+  top: 230px;
+  left: 440px;
+}
+`;
+const RunToThird = keyframes`
+0% {
+  top: 230px;
+  left: 440px;
+}
+100% {
+  top: 450px;
+  left: 230px;
+}
+`;
+
 const Game = {
   Game: styled(CS.BOX.FLEX_ROW_BOX)`
     position: relative;
@@ -144,31 +176,44 @@ const GamePlayground = {
     width: 100%;
   `,
 
-  Runner: styled(CS.BOX.FLEX_CENTER_BOX)`
+  ToFirst: styled.div`
     position: absolute;
-
     width: 100px;
     height: 100px;
-    transition: all ease-in-out 1s;
-    transform: scaleX(-1) rotate(45deg);
+    animation: ${RunToFirst} 1 2s linear;
+    animation-fill-mode: both;
+    transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
 
     img {
       width: 100%;
       height: 100%;
     }
+  `,
+  ToSecond: styled.div`
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    animation: ${RunToSecond} 1 2s linear;
+    animation-fill-mode: both;
+    transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
 
-    /* base */
-    top: 670px;
-    left: 430px;
-    /* 1 */
-    /* top: 450px;
-    left: 650px; */
-    /* 2 */
-    /* top: 230px;
-    left: 440px; */
-    /* 3 */
-    /* top: 450px;
-    left: 230px; */
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  `,
+  ToThird: styled.div`
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    animation: ${RunToThird} 1 2s linear;
+    animation-fill-mode: both;
+    transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   `,
 
   FirstBase: styled(CS.BOX.FLEX_CENTER_BOX)`

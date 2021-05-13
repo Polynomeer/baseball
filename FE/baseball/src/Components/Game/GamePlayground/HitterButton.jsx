@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-const Hitter = ({ hitterActionDispatch, runnerDispatch, type }) => {
+const Hitter = ({ hitterActionDispatch, baseListDispatch, type }) => {
+  const [player, setPlayer] = useState(1);
+
   const handleClickHitter = (type) => {
     console.log(type);
     hitterActionDispatch({ type: type });
-    runnerDispatch({ type: type });
+    baseListDispatch({ type: type, player: player });
+    setPlayer(player + 1);
   };
 
   return (
@@ -12,14 +16,18 @@ const Hitter = ({ hitterActionDispatch, runnerDispatch, type }) => {
   );
 };
 
-const HitterButton = ({ hitterActionDispatch, runnerDispatch }) => {
+const HitterButton = ({
+  hitterActionDispatch,
+
+  baseListDispatch,
+}) => {
   return (
     <HitterButtonStyle>
-      <Hitter {...{ hitterActionDispatch, runnerDispatch }} type={`HIT`} />
-      <Hitter {...{ hitterActionDispatch, runnerDispatch }} type={`DOUBLE`} />
-      <Hitter {...{ hitterActionDispatch, runnerDispatch }} type={`TRIPLE`} />
-      <Hitter {...{ hitterActionDispatch, runnerDispatch }} type={`HR`} />
-      <Hitter {...{ hitterActionDispatch, runnerDispatch }} type={`B4`} />
+      <Hitter {...{ hitterActionDispatch, baseListDispatch }} type={`HIT`} />
+      <Hitter {...{ hitterActionDispatch, baseListDispatch }} type={`DOUBLE`} />
+      <Hitter {...{ hitterActionDispatch, baseListDispatch }} type={`TRIPLE`} />
+      <Hitter {...{ hitterActionDispatch, baseListDispatch }} type={`HR`} />
+      <Hitter {...{ hitterActionDispatch, baseListDispatch }} type={`B4`} />
     </HitterButtonStyle>
   );
 };

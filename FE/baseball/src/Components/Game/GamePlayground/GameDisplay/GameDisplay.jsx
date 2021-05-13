@@ -10,7 +10,9 @@ import {
   baseStatement,
   gameDisplayTable,
   hitterAction,
+  initialBaseList,
   initialBaseState,
+  initialRunnerState,
   runner,
 } from '@/Utils/const';
 import Player from './Player';
@@ -122,32 +124,25 @@ const hitterReducer = (state, action) => {
   }
 };
 
-const runnerReducer = (state, action) => {
+const baseListReducer = (state, action) => {
+  console.log(action);
   switch (action.type) {
-    case hitterAction.HIT:
-      return ([state[0], state[1], state[2]] = [
-        { player: 'new', isRunner: true },
-        state[0],
-        state[1],
-      ]);
-    case hitterAction.DOUBLE:
+    case hitterAction.HIT: {
+      const updateState = state.map((each) => {
+        return { ...each, player: each.player, base: each.base + 1 };
+      });
+      return [
+        {
+          player: action.player,
+          base: 1,
+        },
+        ...updateState,
+      ];
+    }
+
+    case 'DOUBLE':
       return;
-    case hitterAction.TRIPLE:
-      return;
-    case hitterAction.HR:
-      return;
-    case hitterAction.B4:
-      return;
-    default:
-      break;
-  }
-};
-const hitterImgReducer = (state, action) => {
-  switch (action.type) {
-    case 'HITTER':
-      return (state = 'HITTER');
-    case 'RUNNER':
-      return (state = 'RUNNER');
+
     default:
       break;
   }
@@ -159,24 +154,23 @@ const GameDisplay = () => {
     initialBaseState
   );
 
-  const [runnerState, runnerDispatch] = useReducer(
-    runnerReducer,
-    baseStatement
-  );
-  const [hitterImg, hitterImgDispatch] = useReducer(
-    hitterImgReducer,
-    'DEFAULT'
+  const [baseList, baseListDispatch] = useReducer(
+    baseListReducer,
+    initialBaseList
   );
 
-  console.log(runnerState);
-  useEffect(() => {}, [runnerState]);
+  useEffect(() => {
+    console.log(baseList);
+  }, [baseList]);
 
   return (
     <S.GameDisplay>
       <GameDisplayBackground />
-      <HitterButton {...{ hitterActionDispatch, runnerDispatch }} />
+      <HitterButton {...{ hitterActionDispatch, baseListDispatch }} />
       <Player />
-
+      {baseList.length === 1 && <Runner type={baseList[0].base} />}
+      {baseList.length === 2 && <Runner type={baseList[1].base} />}
+      {baseList.length === 3 && <Runner type={baseList[2].base} />}
       <Base
         isRunner={baseState.first.isRunner}
         basePosition={baseState.first.position}
