@@ -20,7 +20,6 @@ const GameDisplay = () => {
   } = useContext(GameContext);
 
   useEffect(() => {
-    console.log(baseList);
     if (baseList.length === 4) {
       setTimeout(async () => {
         baseListDispatch({ type: 'SCORE' });

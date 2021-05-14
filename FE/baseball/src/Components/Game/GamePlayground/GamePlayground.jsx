@@ -39,8 +39,6 @@ const reducer = (state, action) => {
       }
       inningState.isDefense = !state.isDefense;
       return { ...inningState };
-    // case 'HIT':
-    //   return { ...state, ...initialBallState, out: state.out };
     default:
       return { ...state, ...initialBallState };
   }
@@ -48,9 +46,9 @@ const reducer = (state, action) => {
 
 const GamePlayground = () => {
   const initialState = {
-    strike: 2,
+    strike: 0,
     ball: 0,
-    out: 2,
+    out: 0,
     inning: 1,
     inningCount: '초',
     isDefense: true,
