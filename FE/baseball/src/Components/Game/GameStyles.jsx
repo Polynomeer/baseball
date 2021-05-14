@@ -203,7 +203,7 @@ const GamePlayground = {
     animation: ${({ aniState }) =>
       aniState
         ? css`
-            ${RunToFirst} 1 1s linear
+            ${RunToFirst} 1 0.4s linear
           `
         : `none`};
     animation-fill-mode: both;
@@ -223,7 +223,7 @@ const GamePlayground = {
     animation: ${({ aniState }) =>
       aniState
         ? css`
-            ${RunToSecond} 1 1s linear
+            ${RunToSecond} 1 0.4s linear
           `
         : `none`};
     animation-fill-mode: both;
@@ -243,7 +243,7 @@ const GamePlayground = {
     animation: ${({ aniState }) =>
       aniState
         ? css`
-            ${RunToThird} 1 1s linear
+            ${RunToThird} 1 0.4s linear
           `
         : `none`};
     animation-fill-mode: both;
@@ -260,7 +260,7 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToHome} 1 1s linear;
+    animation: ${RunToHome} 1 0.4s linear;
     animation-fill-mode: both;
     transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
     opacity: ${({ opacity }) => opacity};

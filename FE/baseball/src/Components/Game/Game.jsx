@@ -1,56 +1,19 @@
-import { createContext, useState, useEffect, useReducer } from "react";
-import GameHeader from "./GameHeader/GameHeader";
-import GamePlayground from "./GamePlayground/GamePlayground";
-import GamePlayLog from "./GamePlayLog/GamePlayLog";
-import SquadBoard from "./SquadBoard/SquadBoard";
-import ScoreBoard from "./ScoreBoard/ScoreBoard";
-import { BACKGROUND_URL, hitterAction, initialBaseList } from "@/Utils/const";
-import getGameData from "@/Utils/getGameData";
-import { Game as S } from "@/Components/Game/GameStyles";
-import GameDisplay from "./GamePlayground/GameDisplay/GameDisplay";
-import { v4 as uuidv4 } from "uuid";
+import { createContext, useState, useEffect, useReducer } from 'react';
+import GameHeader from './GameHeader/GameHeader';
+import GamePlayground from './GamePlayground/GamePlayground';
+import GamePlayLog from './GamePlayLog/GamePlayLog';
+import SquadBoard from './SquadBoard/SquadBoard';
+import ScoreBoard from './ScoreBoard/ScoreBoard';
+import { BACKGROUND_URL, hitterAction, initialBaseList } from '@/Utils/const';
+import getGameData from '@/Utils/getGameData';
+import { Game as S } from '@/Components/Game/GameStyles';
+import GameDisplay from './GamePlayground/GameDisplay/GameDisplay';
+import { v4 as uuidv4 } from 'uuid';
 
 const GameContext = createContext();
 
-const reducer = (state, action) => {
-  const initialBallState = {
-    strike: 0,
-    ball: 0,
-    out: 0,
-  };
-  switch (action.type) {
-    case "STRIKE_OUT":
-      // 로그 데이터 PUT
-      return { ...state, ...initialBallState, out: state.out + 1 };
-    case "STRIKE":
-      return { ...state, strike: state.strike + 1 };
-    case "FOUR_BALL":
-      // 추가로 1루타 액션 필요 & 로그 데이터 PUT
-      return { ...state, ...initialBallState, out: state.out };
-    case "BALL":
-      return { ...state, ball: state.ball + 1 };
-    case "THREE_OUT":
-      // 이닝 정보 PUT
-      // defenseTeam Switching
-      let inningState = { ...state, ...initialBallState };
-      if (state.inningCount === "초") {
-        if (!state.isDefense) {
-          inningState.inningCount = "말";
-        }
-      } else {
-        if (!state.isDefense) {
-          inningState.inning = state.inning + 1;
-          inningState.inningCount = "초";
-        }
-      }
-      inningState.isDefense = !state.isDefense;
-      return { ...inningState };
-    default:
-      return { ...state, ...initialBallState };
-  }
-};
-
 const baseListReducer = (state, action) => {
+  console.log(action.type);
   switch (action.type) {
     case hitterAction.HIT: {
       const updateState = state.map((each) => {
@@ -64,7 +27,7 @@ const baseListReducer = (state, action) => {
         ...updateState,
       ];
     }
-    case "SCORE": {
+    case 'SCORE': {
       const updateState = state.filter((each) => {
         return each.base !== 4;
       });
@@ -84,6 +47,7 @@ const Game = ({
   const [gameData, setGameData] = useState(null);
   const [squads, setSquads] = useState(null);
   const [defenseTeam, setDefenseTeam] = useState(null);
+  const [offenseTeam, setOffenseTeam] = useState(null);
   const [homeTeam, setHomeTeam] = useState(null);
   const [awayTeam, setAwayTeam] = useState(null);
   const [homeCurrentHitter, setHomeCurrentHitter] = useState(null);
@@ -103,20 +67,10 @@ const Game = ({
     away: 0,
   });
 
-  const initialState = {
-    strike: 0,
-    ball: 0,
-    out: 0,
-    inning: 1,
-    inningCount: "초",
-    isDefense: true,
-  };
-  const [state, dispatch] = useReducer(reducer, initialState);
-
   useEffect(() => {
-    getGameData("game", gameId, setGameData, setError);
-    getGameData("squads", gameId, setSquads, setError);
-    getGameData("score", gameId, setGameScoreData, setError);
+    getGameData('game', gameId, setGameData, setError);
+    getGameData('squads', gameId, setSquads, setError);
+    getGameData('score', gameId, setGameScoreData, setError);
     setDefenseTeam(teamName);
 
     if (gameData) {
@@ -125,6 +79,11 @@ const Game = ({
       setAwayTeam(gameData.away.teamName);
       setHomeCurrentHitter(gameData.home.players[0]);
       setAwayCurrentHitter(gameData.away.players[0]);
+      let offense =
+        teamName === gameData.home.teamName
+          ? gameData.away.teamName
+          : gameData.home.teamName;
+      setOffenseTeam(offense);
     }
   }, []);
 
@@ -137,6 +96,7 @@ const Game = ({
         gameData,
         squads,
         defenseTeam,
+        offenseTeam,
         awayTeam,
         setDefenseTeam,
         homeCurrentHitter,
@@ -155,9 +115,6 @@ const Game = ({
         setGameScoreData,
         totalScore,
         setTotalScore,
-        reducer,
-        state,
-        dispatch,
       }}
     >
       <S.Background src={BACKGROUND_URL} />
