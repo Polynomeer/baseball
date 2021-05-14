@@ -5,7 +5,7 @@ import { GameContext } from '../Game';
 
 const PitchButton = ({ inningInfo, dispatch }) => {
   const [visible, setVisible] = useState('visible');
-  const { baseListDispatch } = useContext(GameContext);
+  const { baseListDispatch, setAniState } = useContext(GameContext);
   let interval;
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const PitchButton = ({ inningInfo, dispatch }) => {
         dispatch({ type: action });
         if (action === 'HIT') {
           baseListDispatch({ type: action });
+          setAniState(true);
         }
         handleButtonFlag(setButtonFlag);
       }}
@@ -40,8 +41,8 @@ const PitchButton = ({ inningInfo, dispatch }) => {
 };
 
 const pitch = () => {
-  const pitchAction = ['HIT', 'HIT', 'HIT'];
-  const randomNumber = Math.floor(Math.random() * 3);
+  const pitchAction = ['STRIKE', 'BALL', 'STRIKE', 'BALL', 'STRIKE', 'HIT'];
+  const randomNumber = Math.floor(Math.random() * 6);
   return pitchAction[randomNumber];
 };
 

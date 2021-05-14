@@ -1,22 +1,44 @@
 import ScoreRow from './ScoreRow';
 import ScoreRowHead from './ScoreRowHead';
 import { ScoreBoardStyles as S } from '@/Components/Game/ScoreBoard/ScoreBoardStyles';
-import { scores } from '../temp_Scores';
+import { useContext, useEffect } from 'react';
+import { GameContext } from '../../Game';
 
-const ScoreTable = ({ gameData, teamName }) => {
-  if (!gameData) return null;
-  const away = gameData.away;
-  const home = gameData.home;
+const ScoreTable = () => {
+  const { teamName, gameScoreData, totalScore, setTotalScore } =
+    useContext(GameContext);
+
+  const { home, away } = totalScore;
+
   const isPlayer = (name) => {
     return name === teamName ? true : false;
   };
+  const getTotalScore = (list) =>
+    list ? list && list.reduce((acc, cur) => (acc += cur.score), 0) : 0;
+
+  useEffect(() => {
+    setTotalScore({
+      ...totalScore,
+      home: getTotalScore(gameScoreData && gameScoreData.home.innings),
+      away: getTotalScore(gameScoreData && gameScoreData.away.innings),
+    });
+  }, []);
+  if (!gameScoreData) return null;
 
   return (
     <S.ScoreTable>
-      <ScoreRowHead {...{ gameData }} />
+      <ScoreRowHead {...{ gameScoreData }} />
       <S.ScoreMiddleLine />
-      <ScoreRow teamInfo={away} isPlayer={isPlayer(away.teamName)} />
-      <ScoreRow teamInfo={home} isPlayer={isPlayer(home.teamName)} />
+      <ScoreRow
+        teamInfo={gameScoreData.away}
+        isPlayer={isPlayer(gameScoreData.away.teamName)}
+        totalScore={`${away}`}
+      />
+      <ScoreRow
+        teamInfo={gameScoreData.home}
+        isPlayer={isPlayer(gameScoreData.home.teamName)}
+        totalScore={`${home}`}
+      />
     </S.ScoreTable>
   );
 };

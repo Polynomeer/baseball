@@ -1,5 +1,4 @@
-import { useReducer, useContext } from 'react';
-import { GameContext } from '@/Components/Game/Game';
+import { useReducer } from 'react';
 import InningInfo from './InningInfo';
 import PitchButton from './PitchButton';
 import BallCountBoard from './BallCountBoard/BallCountBoard';
@@ -12,7 +11,6 @@ const reducer = (state, action) => {
     ball: 0,
     out: 0,
   };
-
   switch (action.type) {
     case 'STRIKE_OUT':
       // 로그 데이터 PUT
@@ -46,7 +44,6 @@ const reducer = (state, action) => {
 };
 
 const GamePlayground = () => {
-  const { defenseTeam, setDefenseTeam } = useContext(GameContext);
   const initialState = {
     strike: 0,
     ball: 0,

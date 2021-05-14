@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import * as CS from '@/Styles/CommonStyles';
 import theme from '@/Styles/theme';
 
@@ -54,6 +54,7 @@ const RunToHome = keyframes`
   top: 450px;
   left: 230px;
 }
+
 100% {
   top: 670px;
   left: 430px;
@@ -106,22 +107,23 @@ const GameHeader = {
   GameProgress: {
     GameProgress: styled(CS.BOX.FLEX_ROW_BOX)``,
     VS: styled.div`
-      font-size: ${theme.FONTSIZE.L};
+      font-size: ${theme.FONTSIZE.M};
       font-weight: 700;
       color: ${theme.COLOR.VS};
       padding: 10px;
     `,
     TeamName: styled.div`
-      font-size: ${theme.FONTSIZE.XXL};
+      font-size: ${theme.FONTSIZE.L};
       font-weight: 700;
     `,
     TeamNameWrapper: styled(CS.BOX.FLEX_COLUMN_CENTER_BOX)``,
     Score: styled.div`
-      font-size: ${theme.FONTSIZE.XXL};
+      font-size: ${theme.FONTSIZE.L};
       font-weight: 700;
       margin: 0px 20px;
     `,
     CurrentPlayerTag: styled.div`
+      position: relative;
       width: 100px;
       text-align: center;
       font-size: ${theme.FONTSIZE.XS};
@@ -198,9 +200,16 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToFirst} 1 1s linear;
+    animation: ${({ aniState }) =>
+      aniState
+        ? css`
+            ${RunToFirst} 1 1s linear
+          `
+        : `none`};
     animation-fill-mode: both;
     transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
+    top: 450px;
+    left: 650px;
 
     img {
       width: 100%;
@@ -211,9 +220,16 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToSecond} 1 1s linear;
+    animation: ${({ aniState }) =>
+      aniState
+        ? css`
+            ${RunToSecond} 1 1s linear
+          `
+        : `none`};
     animation-fill-mode: both;
     transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
+    top: 230px;
+    left: 440px;
 
     img {
       width: 100%;
@@ -224,9 +240,16 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToThird} 1 1s linear;
+    animation: ${({ aniState }) =>
+      aniState
+        ? css`
+            ${RunToThird} 1 1s linear
+          `
+        : `none`};
     animation-fill-mode: both;
     transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
+    top: 450px;
+    left: 230px;
 
     img {
       width: 100%;
@@ -241,7 +264,7 @@ const GamePlayground = {
     animation-fill-mode: both;
     transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
     opacity: ${({ opacity }) => opacity};
-    transition: 0.4s;
+    transition: all ease-out 1s;
 
     img {
       width: 100%;

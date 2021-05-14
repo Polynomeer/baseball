@@ -1,10 +1,10 @@
 import { GamePlayground as S } from '@/Components/Game/GameStyles';
 import { useState } from 'react';
 
-const ToFirst = () => {
+const ToFirst = ({ aniState }) => {
   const [img, setImg] = useState({
-    name: 'runner',
-    deg: 45,
+    name: aniState ? 'runner' : 'runner2',
+    deg: aniState ? 45 : 0,
   });
 
   const { name, deg } = img;
@@ -15,16 +15,17 @@ const ToFirst = () => {
       deg: 0,
     });
   };
+
   return (
-    <S.ToFirst onAnimationEnd={animationHandler} deg={deg}>
+    <S.ToFirst onAnimationEnd={animationHandler} {...{ deg, aniState }}>
       <img src={`./asset/${name}.gif`} alt="runner" />
     </S.ToFirst>
   );
 };
-const ToSecond = () => {
+const ToSecond = ({ aniState }) => {
   const [img, setImg] = useState({
-    name: 'runner',
-    deg: 45,
+    name: aniState ? 'runner' : 'runner2',
+    deg: aniState ? 45 : 0,
   });
   const { name, deg } = img;
 
@@ -34,17 +35,18 @@ const ToSecond = () => {
       deg: 0,
     });
   };
+
   return (
-    <S.ToSecond onAnimationEnd={animationHandler} deg={deg}>
+    <S.ToSecond onAnimationEnd={animationHandler} {...{ deg, aniState }}>
       <img src={`./asset/${name}.gif`} alt="runner" />
     </S.ToSecond>
   );
 };
 
-const ToThird = () => {
+const ToThird = ({ aniState }) => {
   const [img, setImg] = useState({
-    name: 'runner',
-    deg: 45,
+    name: aniState ? 'runner' : 'runner2',
+    deg: aniState ? 45 : 0,
   });
   const { name, deg } = img;
 
@@ -54,14 +56,15 @@ const ToThird = () => {
       deg: 0,
     });
   };
+
   return (
-    <S.ToThird onAnimationEnd={animationHandler} deg={deg}>
+    <S.ToThird onAnimationEnd={animationHandler} {...{ deg, aniState }}>
       <img src={`./asset/${name}.gif`} alt="runner" />
     </S.ToThird>
   );
 };
 
-const ToHome = () => {
+const ToHome = ({ aniState }) => {
   const [img, setImg] = useState({
     name: 'runner',
     deg: -45,
@@ -76,18 +79,18 @@ const ToHome = () => {
     });
   };
   return (
-    <S.ToHome onAnimationEnd={animationHandler} deg={deg} opacity={opacity}>
+    <S.ToHome onAnimationEnd={animationHandler} {...{ deg, opacity }}>
       <img src={`./asset/${name}.gif`} alt="runner" />
     </S.ToHome>
   );
 };
 
-const Runner = ({ type }) => {
+const Runner = ({ type, aniState }) => {
   return {
-    1: <ToFirst />,
-    2: <ToSecond />,
-    3: <ToThird />,
-    4: <ToHome />,
+    1: <ToFirst {...{ aniState }} />,
+    2: <ToSecond {...{ aniState }} />,
+    3: <ToThird {...{ aniState }} />,
+    4: <ToHome {...{ aniState }} />,
   }[type];
 };
 
