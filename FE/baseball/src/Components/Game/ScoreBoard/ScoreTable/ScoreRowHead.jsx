@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import ScoreItem from './ScoreItem';
 
-const ScoreRowHead = ({ gameData }) => {
+const ScoreRowHead = () => {
   return (
     <S.ScoreRowHead>
       <AttackTeamTag isAttack={false} />
@@ -14,6 +14,7 @@ const ScoreRowHead = ({ gameData }) => {
       {defaultInning.map((inning) => (
         <ScoreItem key={uuidv4()} {...{ inning }} />
       ))}
+      <ScoreItem inning={'R'} />
     </S.ScoreRowHead>
   );
 };

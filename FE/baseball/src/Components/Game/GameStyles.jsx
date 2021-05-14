@@ -1,6 +1,6 @@
-import styled, { keyframes } from "styled-components";
-import * as CS from "@/Styles/CommonStyles";
-import theme from "@/Styles/theme";
+import styled, { css, keyframes } from 'styled-components';
+import * as CS from '@/Styles/CommonStyles';
+import theme from '@/Styles/theme';
 
 const ArrowFade = keyframes`
 0% {
@@ -46,6 +46,18 @@ const RunToThird = keyframes`
 100% {
   top: 450px;
   left: 230px;
+}
+`;
+
+const RunToHome = keyframes`
+0% {
+  top: 450px;
+  left: 230px;
+}
+
+100% {
+  top: 670px;
+  left: 430px;
 }
 `;
 
@@ -95,22 +107,23 @@ const GameHeader = {
   GameProgress: {
     GameProgress: styled(CS.BOX.FLEX_ROW_BOX)``,
     VS: styled.div`
-      font-size: ${theme.FONTSIZE.L};
+      font-size: ${theme.FONTSIZE.M};
       font-weight: 700;
       color: ${theme.COLOR.VS};
       padding: 10px;
     `,
     TeamName: styled.div`
-      font-size: ${theme.FONTSIZE.XXL};
+      font-size: ${theme.FONTSIZE.L};
       font-weight: 700;
     `,
     TeamNameWrapper: styled(CS.BOX.FLEX_COLUMN_CENTER_BOX)``,
     Score: styled.div`
-      font-size: ${theme.FONTSIZE.XXL};
+      font-size: ${theme.FONTSIZE.L};
       font-weight: 700;
       margin: 0px 20px;
     `,
     CurrentPlayerTag: styled.div`
+      position: relative;
       width: 100px;
       text-align: center;
       font-size: ${theme.FONTSIZE.XS};
@@ -160,7 +173,7 @@ const GamePlayground = {
     border-radius: 8px;
     background: #222;
     color: ${theme.COLOR.DEFAULT};
-    font-family: "Orbitron", sans-serif;
+    font-family: 'Orbitron', sans-serif;
     font-size: ${theme.FONTSIZE.M};
     padding: 10px;
     z-index: 999;
@@ -180,20 +193,23 @@ const GamePlayground = {
   GameDisplay: styled.div`
     position: absolute;
     bottom: -3%;
-    left: 9%;
-  `,
-
-  Player: styled.div`
-    width: 100%;
+    left: 105px;
   `,
 
   ToFirst: styled.div`
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToFirst} 1 1s linear;
+    animation: ${({ aniState }) =>
+      aniState
+        ? css`
+            ${RunToFirst} 1 1s linear
+          `
+        : `none`};
     animation-fill-mode: both;
     transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
+    top: 450px;
+    left: 650px;
 
     img {
       width: 100%;
@@ -204,9 +220,16 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToSecond} 1 1s linear;
+    animation: ${({ aniState }) =>
+      aniState
+        ? css`
+            ${RunToSecond} 1 1s linear
+          `
+        : `none`};
     animation-fill-mode: both;
     transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
+    top: 230px;
+    left: 440px;
 
     img {
       width: 100%;
@@ -217,59 +240,36 @@ const GamePlayground = {
     position: absolute;
     width: 100px;
     height: 100px;
-    animation: ${RunToThird} 1 1s linear;
+    animation: ${({ aniState }) =>
+      aniState
+        ? css`
+            ${RunToThird} 1 1s linear
+          `
+        : `none`};
     animation-fill-mode: both;
     transform: scaleX(1) rotate(${({ deg }) => `${deg}deg`});
+    top: 450px;
+    left: 230px;
 
     img {
       width: 100%;
       height: 100%;
     }
   `,
-
-  FirstBase: styled(CS.BOX.FLEX_CENTER_BOX)`
-    width: 49px;
-    height: 49px;
-    border: 1px solid red;
-    background: red;
-    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
-    transform: rotate(45deg);
+  ToHome: styled.div`
     position: absolute;
-    z-index: -1;
-    transition: all ease-in-out 0.4s;
-    /* 1 */
-    top: 491px;
-    left: 669px;
-  `,
+    width: 100px;
+    height: 100px;
+    animation: ${RunToHome} 1 1s linear;
+    animation-fill-mode: both;
+    transform: scaleX(-1) rotate(${({ deg }) => `${deg}deg`});
+    opacity: ${({ opacity }) => opacity};
+    transition: all ease-out 1s;
 
-  SecondBase: styled(CS.BOX.FLEX_CENTER_BOX)`
-    width: 49px;
-    height: 49px;
-    border: 1px solid red;
-    background: red;
-    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
-    transform: rotate(45deg);
-    position: absolute;
-    z-index: -1;
-    transition: all ease-in-out 0.4s;
-    /* 2 */
-    top: 272px;
-    left: 451px;
-  `,
-
-  ThirdBase: styled(CS.BOX.FLEX_CENTER_BOX)`
-    width: 49px;
-    height: 49px;
-    border: 1px solid red;
-    background: red;
-    opacity: ${({ isRunner }) => (isRunner ? 0.8 : 0)};
-    transform: rotate(45deg);
-    position: absolute;
-    z-index: -1;
-    transition: all ease-in-out 0.4s;
-    /* 3 */
-    top: 491px;
-    left: 231px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   `,
 
   HomeBase: styled(CS.BOX.FLEX_CENTER_BOX)`
@@ -311,11 +311,11 @@ const GamePlayground = {
       margin-right: 3px;
       background: ${({ type }) => {
         switch (type) {
-          case "STRIKE":
+          case 'STRIKE':
             return theme.COLOR.BALLCOUNT_STRIKE;
-          case "BALL":
+          case 'BALL':
             return theme.COLOR.BALLCOUNT_BALL;
-          case "OUT":
+          case 'OUT':
             return theme.COLOR.BALLCOUNT_OUT;
           default:
             return;
@@ -360,7 +360,7 @@ const GamePlayLog = {
     LogTitle: styled.div`
       font-weight: 600;
       color: ${({ isCurrentPlayer }) =>
-        isCurrentPlayer ? "red" : theme.COLOR.PLAYER_NAME};
+        isCurrentPlayer ? 'red' : theme.COLOR.PLAYER_NAME};
     `,
     Log: styled.div`
       padding: 20px 0px;
@@ -393,7 +393,7 @@ const GamePlayLog = {
 const SquadBoard = {
   SquadBoard: styled(CS.BOX.FLEX_ROW_BOX)`
     position: absolute;
-    bottom: ${({ isMouseOver }) => (isMouseOver ? "5px" : "-1080px")};
+    bottom: ${({ isMouseOver }) => (isMouseOver ? '5px' : '-1080px')};
     left: 5%;
     width: 70%;
     height: 77%;
@@ -414,7 +414,7 @@ const SquadBoard = {
   `,
   PopUpBackground: styled.div`
     position: absolute;
-    display: ${({ isMouseOver }) => (isMouseOver ? "block" : "none")};
+    display: ${({ isMouseOver }) => (isMouseOver ? 'block' : 'none')};
     left: 0;
     width: 99.6%;
     height: 99.4%;
@@ -481,7 +481,7 @@ const SquadBoard = {
       border-bottom: 1px solid ${theme.COLOR.PLAYER_DESCRIPTION};
       text-align: center;
       color: ${({ isCurrentPlayer }) =>
-        isCurrentPlayer ? "red" : theme.COLOR.DEFAULT};
+        isCurrentPlayer ? 'red' : theme.COLOR.DEFAULT};
     `,
     SquadTableData: styled.td`
       vertical-align: middle;

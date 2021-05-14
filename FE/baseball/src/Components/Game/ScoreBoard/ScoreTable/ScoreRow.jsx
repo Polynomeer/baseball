@@ -4,23 +4,22 @@ import ScoreItem from './ScoreItem';
 import { ScoreBoardStyles as S } from '@/Components/Game/ScoreBoard/ScoreBoardStyles';
 import { v4 as uuidv4 } from 'uuid';
 import { defaultInning } from '@/Utils/const';
+import { useContext } from 'react';
+import { GameContext } from '../../Game';
 
-const ScoreRow = ({ teamInfo, isPlayer }) => {
+const ScoreRow = ({ teamInfo, isPlayer, totalScore }) => {
+  const { gameData } = useContext(GameContext);
   const { teamName, innings } = teamInfo;
+  const isOffense = teamName === gameData.away.teamName ? true : false;
 
-  const isOffense = true;
-  const totalScore = 1;
   return (
     <S.ScoreRow {...{ isOffense }}>
       <AttackTeamTag {...{ isOffense }} />
       <TeamNameBox {...{ teamName, isPlayer }} />
       {defaultInning.map((_, idx) => (
-        <ScoreItem
-          key={uuidv4()}
-          inningScore={innings[idx].score}
-          {...{ idx, totalScore }}
-        />
+        <ScoreItem key={uuidv4()} inningScore={innings[idx].score} />
       ))}
+      <ScoreItem inningScore={totalScore} />
     </S.ScoreRow>
   );
 };
