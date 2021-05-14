@@ -1,18 +1,39 @@
-import GameDisplayBackground from '@/Components/Game/GamePlayground/GameDisplay/GameDisplayBackground';
-import { v4 as uuidv4 } from 'uuid';
-import Runner from './Runner';
-import { GamePlayground as S } from '@/Components/Game/GameStyles';
-import { useContext, useEffect } from 'react';
-import { GameContext } from '@/Components/Game/Game';
+import GameDisplayBackground from "@/Components/Game/GamePlayground/GameDisplay/GameDisplayBackground";
+import { v4 as uuidv4 } from "uuid";
+import Runner from "./Runner";
+import { GamePlayground as S } from "@/Components/Game/GameStyles";
+import { getAPI, putAPI } from "@/Utils/API";
+import getGameData from "@/Utils/getGameData";
+import { useContext, useEffect } from "react";
+import { GameContext } from "@/Components/Game/Game";
 
 const GameDisplay = () => {
-  const { aniState, setAniState, baseList, baseListDispatch } =
-    useContext(GameContext);
+  const {
+    aniState,
+    setAniState,
+    baseList,
+    baseListDispatch,
+    totalScore,
+    setTotalScore,
+    gameId,
+    setGameScoreData,
+    teamName,
+    state,
+  } = useContext(GameContext);
 
   useEffect(() => {
     if (baseList.length === 4) {
-      setTimeout(() => {
-        baseListDispatch({ type: 'SCORE' });
+      setTimeout(async () => {
+        baseListDispatch({ type: "SCORE" });
+        setTotalScore({ ...totalScore, home: totalScore.home + 1 });
+        await putAPI.endInning(gameId, {
+          teamName: "Samsung Lions",
+          number: state.inning,
+          score: 1,
+        });
+        getAPI.score(gameId).then((res) => {
+          setGameScoreData(res.data);
+        });
         setAniState(false);
       }, 1500);
     }

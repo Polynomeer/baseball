@@ -1,21 +1,21 @@
-import { useContext, useEffect, useState } from 'react';
-import { playDelayTime } from '@/Utils/const';
-import { GamePlayground as S } from '@/Components/Game/GameStyles';
-import { GameContext } from '../Game';
+import { useContext, useEffect, useState } from "react";
+import { playDelayTime } from "@/Utils/const";
+import { GamePlayground as S } from "@/Components/Game/GameStyles";
+import { GameContext } from "../Game";
 
 const PitchButton = ({ inningInfo, dispatch }) => {
-  const [visible, setVisible] = useState('visible');
+  const [visible, setVisible] = useState("visible");
   const { baseListDispatch, setAniState } = useContext(GameContext);
   let interval;
 
   useEffect(() => {
     if (!inningInfo.isDefense) {
-      setVisible('hidden');
+      setVisible("hidden");
       interval = setInterval(() => {
         dispatch({ type: pitch() });
       }, playDelayTime);
     } else {
-      setVisible('visible');
+      setVisible("visible");
     }
     return () => clearInterval(interval);
   }, [inningInfo]);
@@ -28,7 +28,7 @@ const PitchButton = ({ inningInfo, dispatch }) => {
       onClick={() => {
         const action = pitch();
         dispatch({ type: action });
-        if (action === 'HIT') {
+        if (action === "HIT") {
           baseListDispatch({ type: action });
           setAniState(true);
         }
@@ -41,7 +41,7 @@ const PitchButton = ({ inningInfo, dispatch }) => {
 };
 
 const pitch = () => {
-  const pitchAction = ['STRIKE', 'BALL', 'STRIKE', 'BALL', 'STRIKE', 'HIT'];
+  const pitchAction = ["STRIKE", "BALL", "STRIKE", "BALL", "HIT", "HIT"];
   const randomNumber = Math.floor(Math.random() * 6);
   return pitchAction[randomNumber];
 };

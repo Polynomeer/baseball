@@ -12,7 +12,7 @@ const getAPI = {
 }
 
 const putAPI = {
-	endInning: ({ gameId, inningNumber, body }) => api.put(`games/${gameId}/${inningNumber}`, body),
+	endInning: (gameId, body) => api.put(`games/${gameId}/innings`, body),
 	pitch: (gameId, body) => api.put(`games/${gameId}`, body),
 }
 
