@@ -1,10 +1,10 @@
-import BallJudgement from './BallJudgement';
-import BallCount from './BallCount';
-import { playDelayTime } from '@/Utils/const';
-import { GamePlayground as S } from '@/Components/Game/GameStyles';
-import * as CS from '@/Styles/CommonStyles';
-import { useContext } from 'react';
-import { GameContext } from '../../Game';
+import BallJudgement from "./BallJudgement";
+import BallCount from "./BallCount";
+import { playDelayTime } from "@/Utils/const";
+import { GamePlayground as S } from "@/Components/Game/GameStyles";
+import * as CS from "@/Styles/CommonStyles";
+import { useContext } from "react";
+import { GameContext } from "../../Game";
 
 const BallCountBoard = ({ ballCount, dispatch }) => {
   const { baseListDispatch } = useContext(GameContext);
@@ -15,16 +15,16 @@ const BallCountBoard = ({ ballCount, dispatch }) => {
   return (
     <S.BallCountBoard.BallCountBoard>
       <CS.BOX.FLEX_ROW_CENTER_BOX>
-        <BallJudgement type={'S'} />
-        {sortBall('STRIKE', ballCount)}
+        <BallJudgement type={"S"} />
+        {sortBall("STRIKE", ballCount)}
       </CS.BOX.FLEX_ROW_CENTER_BOX>
       <CS.BOX.FLEX_ROW_CENTER_BOX>
-        <BallJudgement type={'B'} />
-        {sortBall('BALL', ballCount)}
+        <BallJudgement type={"B"} />
+        {sortBall("BALL", ballCount)}
       </CS.BOX.FLEX_ROW_CENTER_BOX>
       <CS.BOX.FLEX_ROW_CENTER_BOX>
-        <BallJudgement type={'O'} />
-        {sortBall('OUT', ballCount)}
+        <BallJudgement type={"O"} />
+        {sortBall("OUT", ballCount)}
       </CS.BOX.FLEX_ROW_CENTER_BOX>
     </S.BallCountBoard.BallCountBoard>
   );
@@ -33,9 +33,9 @@ const BallCountBoard = ({ ballCount, dispatch }) => {
 const sortBall = (type, ballCount) => {
   let sortedBall = [];
   let ballCountLength;
-  if (type === 'STRIKE') {
+  if (type === "STRIKE") {
     ballCountLength = ballCount.strike;
-  } else if (type === 'BALL') {
+  } else if (type === "BALL") {
     ballCountLength = ballCount.ball;
   } else {
     ballCountLength = ballCount.out;
@@ -50,7 +50,7 @@ const sortBall = (type, ballCount) => {
 const isStrikeOut = (ballCount, dispatch) => {
   if (ballCount.strike === 3) {
     setTimeout(() => {
-      dispatch({ type: 'STRIKE_OUT' });
+      dispatch({ type: "STRIKE_OUT" });
     }, playDelayTime);
   }
 };
@@ -58,8 +58,8 @@ const isStrikeOut = (ballCount, dispatch) => {
 const isFourBall = (ballCount, dispatch, baseListDispatch) => {
   if (ballCount.ball === 4) {
     setTimeout(() => {
-      dispatch({ type: 'FOUR_BALL' });
-      baseListDispatch({ type: 'HIT' });
+      dispatch({ type: "FOUR_BALL" });
+      baseListDispatch({ type: "HIT" });
     }, playDelayTime);
   }
 };
@@ -67,7 +67,7 @@ const isFourBall = (ballCount, dispatch, baseListDispatch) => {
 const isThreeOut = (ballCount, dispatch) => {
   if (ballCount.out === 3) {
     setTimeout(() => {
-      dispatch({ type: 'THREE_OUT' });
+      dispatch({ type: "THREE_OUT" });
     }, playDelayTime);
   }
 };

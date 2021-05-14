@@ -1,16 +1,16 @@
-import AttackTeamTag from '@/Components/Game/ScoreBoard/Teams/AttackTeamTag';
-import TeamNameBox from '@/Components/Game/ScoreBoard/Teams/TeamNameBox';
-import ScoreItem from './ScoreItem';
-import { ScoreBoardStyles as S } from '@/Components/Game/ScoreBoard/ScoreBoardStyles';
-import { v4 as uuidv4 } from 'uuid';
-import { defaultInning } from '@/Utils/const';
-import { useContext } from 'react';
-import { GameContext } from '../../Game';
+import AttackTeamTag from "@/Components/Game/ScoreBoard/Teams/AttackTeamTag";
+import TeamNameBox from "@/Components/Game/ScoreBoard/Teams/TeamNameBox";
+import ScoreItem from "./ScoreItem";
+import { ScoreBoardStyles as S } from "@/Components/Game/ScoreBoard/ScoreBoardStyles";
+import { v4 as uuidv4 } from "uuid";
+import { defaultInning } from "@/Utils/const";
+import { useContext } from "react";
+import { GameContext } from "../../Game";
 
 const ScoreRow = ({ teamInfo, isPlayer, totalScore }) => {
-  const { gameData } = useContext(GameContext);
+  const { gameData, defenseTeam } = useContext(GameContext);
   const { teamName, innings } = teamInfo;
-  const isOffense = teamName === gameData.away.teamName ? true : false;
+  let isOffense = teamName !== defenseTeam ? true : false;
 
   return (
     <S.ScoreRow {...{ isOffense }}>
