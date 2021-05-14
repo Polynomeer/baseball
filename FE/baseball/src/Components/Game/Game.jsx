@@ -13,7 +13,6 @@ import { v4 as uuidv4 } from 'uuid';
 const GameContext = createContext();
 
 const baseListReducer = (state, action) => {
-  console.log(action.type);
   switch (action.type) {
     case hitterAction.HIT: {
       const updateState = state.map((each) => {

@@ -12,12 +12,7 @@ const PitchButton = ({ inningInfo, dispatch }) => {
     if (!inningInfo.isDefense) {
       setVisible('hidden');
       interval = setInterval(() => {
-        const action = pitch();
-        dispatch({ type: action });
-        if (action === 'HIT') {
-          baseListDispatch({ type: action });
-          setAniState(true);
-        }
+        dispatch({ type: pitch() });
       }, playDelayTime);
     } else {
       setVisible('visible');
@@ -46,8 +41,8 @@ const PitchButton = ({ inningInfo, dispatch }) => {
 };
 
 const pitch = () => {
-  const pitchAction = ['STRIKE', 'BALL', 'STRIKE', 'BALL', 'HIT'];
-  const randomNumber = Math.floor(Math.random() * 5);
+  const pitchAction = ['STRIKE', 'BALL', 'STRIKE', 'BALL', 'HIT', 'HIT'];
+  const randomNumber = Math.floor(Math.random() * 6);
   return pitchAction[randomNumber];
 };
 
